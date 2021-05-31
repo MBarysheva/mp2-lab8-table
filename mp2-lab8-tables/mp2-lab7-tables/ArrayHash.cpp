@@ -3,7 +3,6 @@
 #include"Record.h"
 
 
-
 TArrayHashTable::TArrayHashTable(int Size, int Step) : TabSize(Size), HashStep(Step) {
 	pRecs = new TTabRecord[TabSize];
 	Empty = TTabRecord(-1);

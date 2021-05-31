@@ -3,6 +3,7 @@
 #define _ARRAYHASH_
 #include"HashTable.h"
 #define TabHashStep 2
+
 class TArrayHashTable : public HashTable
 {
 protected:

@@ -1,56 +1,130 @@
-#include "../mp2-lab7-tables/Table.h"
-#include "../mp2-lab7-tables/Arraytable.h"
-#include "../mp2-lab7-tables/ArrayHash.h"
-#include "../mp2-lab7-tables/HashTable.h"
-#include "../mp2-lab7-tables/Record.h"
-#include "../mp2-lab7-tables/ScanTable.h"
-#include "../mp2-lab7-tables/SortTable.h"
-#include "../mp2-lab7-tables/Treetable.h"
-#include "../mp2-lab7-tables/TreeNode.h"
+#include "Table.h"
 #include "gtest.h"
+//TRecord
+TEST(TRecord, can_create)
+{
+	ASSERT_NO_THROW(TRecord r);
+}
 
-TEST(TTable, can_create_table)
+//TTable
+
+TEST(TTable, can_create)
+{
+	ASSERT_NO_THROW(TTable * tab);
+}
+
+//TArrayTable
+
+TEST(TArrayTable, can_create)
+{
+	ASSERT_NO_THROW(TArrayTable * tab);
+}
+
+//TScanTable
+TEST(TScanTable, can_create)
+{
+	ASSERT_NO_THROW(TScanTable tab(4));
+}
+
+TEST(TScanTable, can_insert)
+{
+	TRecord rec("100", "100");
+	TScanTable tab(4);
+	ASSERT_NO_THROW(tab.InsRec(rec));
+}
+
+TEST(TScanTable, can_delete)
 {
 
-	ASSERT_NO_THROW(TTable <int> st(3));
+	TRecord rec("100", "100");
+	TScanTable a(6);
+	a.InsRec(rec);
+	a.DelRec("100");
+	EXPECT_EQ(0, a.GetDataCount());
 }
-TEST(TStack, can_create_stack_with_negativ_length)
+
+
+//TSortTable
+TEST(TSortTable, can_create)
 {
-	ASSERT_ANY_THROW(Stack<int>st(-1));
+	ASSERT_NO_THROW(TSortTable t(2));
 }
-TEST(TStack, check_IsEmpty_with_empty_stack)
+
+TEST(TSortTable, can_insert)
 {
-	Stack<int> st(5);
-	EXPECT_EQ(true, st.Empty());
+	TSortTable t(2);
+	TRecord rec("10", "100");
+	ASSERT_NO_THROW(t.InsRec(rec));
 }
-TEST(TStack, check_IsEmpty_with_not_empty_stack)
+
+TEST(TSortTable, can_find)
 {
-	Stack<int> st(5);
-	st.Push(2);
-	EXPECT_EQ(false, st.Empty());
+	TSortTable t;
+	TRecord r;
+	ASSERT_NO_THROW(t.Find(r.GetKey()));
 }
-TEST(TStack, check_IsFull_with_full_stack)
+
+TEST(TSortTable, can_delete)
 {
-	Stack<int> st(2);
-	st.Push(1);
-	st.Push(2);
-	EXPECT_EQ(true, st.Full());
+	TSortTable t(2);
+	TRecord rec("10", "100");
+	t.InsRec(rec);
+	ASSERT_NO_THROW(t.DelRec(rec.GetKey()));
 }
-TEST(TStack, check_IsFull_with_not_full_stack)
+
+
+//TTreeTable
+
+TEST(TTreeTable, can_create)
 {
-	Stack<int> st(5);
-	st.Push(2);
-	EXPECT_EQ(false, st.Full());
+	ASSERT_NO_THROW(TTreeTable t);
 }
-TEST(TStack, throws_when_Pop_stack_IsEmty)
+
+TEST(TTreeTable, can_insert)
 {
-	Stack<int> st(5);
-	ASSERT_ANY_THROW(st.Pop());
+	TTreeTable t;
+	TRecord r;
+	ASSERT_NO_THROW(t.InsRec(r));
 }
-TEST(TStack, throws_when_Push_stack_IsFull)
+TEST(TTreeTable, can_find)
 {
-	Stack<int> st(2);
-	st.Push(1);
-	st.Push(2);
-	ASSERT_ANY_THROW(st.Push(2));
+	TTreeTable t;
+	TRecord r;
+	ASSERT_NO_THROW(t.Find(r.GetKey()));
+}
+TEST(TTreeTable, can_delete)
+{
+	TTreeTable t;
+	TRecord r;
+	t.InsRec(r);
+	ASSERT_NO_THROW(t.DelRec(r.GetKey()));
+}
+
+
+
+//THashTable
+TEST(THashTable, can_create)
+{
+	ASSERT_NO_THROW(THashTable t);
+}
+
+TEST(THashTable, can_insert)
+{
+	THashTable t(5, 2);
+	TRecord rec("10", "100");
+	ASSERT_NO_THROW(t.InsRec(rec));
+}
+
+TEST(THashTable, can_find)
+{
+	THashTable t(5, 2);
+	TRecord rec("10", "100");
+	ASSERT_NO_THROW(t.Find(rec.GetKey()));
+}
+TEST(THashTable, can_delete)
+{
+	THashTable t(5, 2);
+	TRecord rec("10", "100");
+	t.InsRec(rec);
+	ASSERT_NO_THROW(t.DelRec(rec.GetKey()));
 }
